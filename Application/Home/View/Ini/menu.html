@@ -1,0 +1,19 @@
+<ul class="nav" id="side-menu">
+	<li class="sidebar-search">
+		<div class="input-group custom-search-form">您好, {$us.username}
+			[{$us.rolename}]</div>
+	</li>
+	<li><a href="/"><i class="fa fa-dashboard fa-fw"></i>首页</a></li>
+	<volist name="menuList" id="v">
+	<li><a href="<?php echo format_url($v['url']); ?>"><i
+			class="fa <?php echo $v['icons'];?> fa-fw"></i>{$v.name}</a>
+		<ul class="nav nav-second-level">
+			<volist name="v.children" id="v1"> <if
+				condition="in_array($v1['menuid'],$menu_role_arrs)">
+			<li><a href="<?php echo format_url($v1['url']); ?>">{$v1.name}</a>
+			</li>
+			</if> </volist>
+		</ul></li>
+	<li class="divider"></li>
+	</volist>
+</ul>

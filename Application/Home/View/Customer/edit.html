@@ -1,0 +1,91 @@
+<include file="User:ztree" />
+<div id="page-wrapper">
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    添加客户信息
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <form role="form" action="" method="post" class="form1">
+                                <div class="form-group">
+                                    <label>客户名称 : </label>
+                                    <input type='hidden' class="form-control" name='company_name' autocomplete="off" placeholder="请请输入客户名称" value="{$cc.company_name}"/>{$cc.company_name}
+                                </div>
+                                <div class="form-group">
+                                    <label>地区</label>
+                                    <input type='text' class="form-control" name='company_area' autocomplete="off" placeholder="请请输入地区" value="{$cc.company_area}"/>(eq:江苏省-徐州市-铜山区)
+                                </div>
+                                <div class="form-group">
+                                    <label> 详细地址</label>
+                                    <input type='text' class="form-control" name='company_addr' autocomplete="off"  placeholder="请请输入地区" value="{$cc.company_addr}"/>
+                                    (eq:铜山区茅村镇15号)
+                                </div>
+                                <div class="form-group">
+                                    <label>联系人名称</label>
+                                    <input type='text' class="form-control" name='link_name' autocomplete="off" placeholder="请请输入联系人名称" value="{$cc.link_name}"/>
+                                    (eq:请请输入联系人名称)
+                                </div>
+                                <div class="form-group">
+                                    <label>性别</label>
+                                    <select  class="form-control" name="link_sex">
+                                     <option value="">请选择</option>
+                                      <option value="男" <if condition="$cc['link_sex'] eq '男'">selected</if>>男</option>
+                                      <option value="女" <if condition="$cc['link_sex'] eq '女'">selected</if>>女</option>
+                                     </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>手机</label>
+                                    <input type="number" name="link_mobile" require class="form-control" placeholder="请请输入手机" value="{$cc.link_mobile}">(eq:13013880706)
+                                </div>
+                                <div class="form-group">
+                                    <label>座机</label>
+                                    <input type="tel" name="link_phone"   class="form-control" autocomplete="off" placeholder="请请输入座机" value="{$cc.link_phone}"/>eq:0512-87089421)
+                                </div>
+                                <div class="form-group">
+                                    <label>部门</label>
+                                    <input type='text' class="form-control" name='link_dept'  placeholder="请请输入部门" value="{$cc.link_dept}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>职位</label>
+                                    <input type='text' class="form-control" name='link_zhiwu' placeholder="请请输入职位" value="{$cc.link_zhiwu}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>公司网址</label>
+                                    <input type='text' class="form-control" name='company_url' placeholder="请请输入公司网址" value="{$cc.company_url}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>公司人数</label>
+                                    <input type='text' class="form-control" name='company_count' placeholder="请输入公司人数" value="{$cc.company_count}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>公司法人</label>
+                                    <input type='text' class="form-control" name='company_faren'  placeholder="请输入公司法人" value="{$cc.company_faren}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>备注</label>
+                                    <textarea  class="form-control" name='comments' placeholder="请输入地区" >{$cc.link_mobile}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>维护人</label>
+                                        <select name='weihuren' id="weihuren" class="form-control">
+											<option value="">请选择</option>
+											<volist name="weihuren_arr" id="v">
+											<option value="{$v.userid}-{$v.username}" <if condition="$cc['crm_provider_user_id'] eq $v['userid']">selected</if>>{$v.username}</option>
+											</volist>
+								     </select>
+                                </div>
+                                <input type='hidden' name="crm_id" value="{$cc.crm_id}" />
+                                <button type="submit" class="btn btn-default sub">提交</button>
+                                {$error}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

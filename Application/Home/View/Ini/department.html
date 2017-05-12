@@ -1,0 +1,24 @@
+ <div class="form-group">
+                                    <label>选择部门</label>
+                                    <select  class="form-control department" name="department">
+                                        <option value="" >请选择</option>
+                                        <volist name="department_list" id="v">
+                                             <option value="{$v.id}" >{$v.name}</option>
+                                        </volist>
+                                    </select>
+
+ </div>
+ <script>
+     $(".department").change(function () {
+         var that = $(this);
+         var pid = that.find("option:selected").val();
+         var pdata = {id: pid};
+         $.post("/department/ajax_getdata", pdata, function (res, o) {
+             var ophtml ='';
+             $(res).each(function (e,e1) {
+                 ophtml += '<option value="'+e1.id+'" >'+e1.name+'</option>';
+             })
+             that.append(ophtml);
+         });
+     })
+ </script>

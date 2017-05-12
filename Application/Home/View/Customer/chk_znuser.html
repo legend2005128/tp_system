@@ -1,0 +1,110 @@
+<if condition="$zn_info eq 1">
+<form role="form" action="/customer/add_from_zn" method="post" class="form2">
+		<P>
+		<div class="list-group">
+			<a href="#" class="list-group-item"> 客户名称 : {$zn_detail.companyName} <input type='hidden'
+				class="form-control" name='company_name'
+				value="{$zn_detail.companyName}" /></a>
+	
+		
+			<a href="#" class="list-group-item"> 地区 : {$zn_detail.companyArea} <input type='hidden'
+				class="form-control" name='company_area'
+				value="{$zn_detail.companyArea}" /></a>
+	
+	
+			<a href="#" class="list-group-item"> 详细地址 : {$zn_detail.companyAddr} <input type='hidden'
+				class="form-control" name='company_addr'
+				value="{$zn_detail.companyAddr}" /></a>
+	
+	
+			<a href="#" class="list-group-item">联系人名称 : {$zn_detail.linkName} <input type='hidden'
+				class="form-control" name='link_name' value="{$zn_detail.linkName}" /></a>
+	
+
+			<a href="#" class="list-group-item"> 性别 : {$zn_detail.linkSex} <input type='hidden'
+				class="form-control" name='link_sex' value="{$zn_detail.linkSex}" /></a>
+
+
+	
+			<a href="#" class="list-group-item"> 手机 : {$zn_detail.linkMobile} <input type="hidden"
+				name="link_mobile" require class="form-control"
+				value="{$zn_detail.linkMobile}" /></a>
+
+	
+			<a href="#" class="list-group-item"> 座机 : {$zn_detail.linkPhone} <input type="hidden"
+				name="link_phone" class="form-control"
+				value="{$zn_detail.linkPhone}" /></a>
+	
+		
+			<a href="#" class="list-group-item">部门 : {$zn_detail.linkDept} <input type='hidden'
+				class="form-control" name='link_dept' value="{$zn_detail.linkDept}" /></a>
+	
+			<a href="#" class="list-group-item">职位 : {$zn_detail.linkZhiwu} <input type='hidden'
+				class="form-control" name='link_zhiwu'
+				value="{$zn_detail.linkZhiwu}" /></a>
+	
+			<a href="#" class="list-group-item">公司网址 :　{$zn_detail.companyUrl} <input type='hidden'
+				class="form-control" name='company_url'
+				value="{$zn_detail.companyUrl}" /></a>
+		
+			<a href="#" class="list-group-item">公司人数 : {$zn_detail.companyCount} <input type='hidden'
+				class="form-control" name='company_count'
+				value="{$zn_detail.companyCount}" />
+	
+			<a href="#" class="list-group-item">公司法人 : {$zn_detail.companyFaren} <input type='hidden'
+				class="form-control" name='company_faren'
+				value="{$zn_detail.companyFaren}" /></a>
+	
+			<a href="#" class="list-group-item"> 备注 : <input type='hidden' class="form-control"
+				name='comments' /></a>
+		</div>
+	
+			<input type='hidden' class="form-control" name='company_status'
+				value="{$zn_detail.companyStatus}" /> <input type='hidden'
+				class="form-control" name='znUserBaseId'
+				value="{$zn_detail.znUserBaseId}" /> <input type='hidden'
+				class="form-control" name='znCreateTime'
+				value="{$zn_detail.znCreateTime}" /> <input type='hidden'
+				class="form-control" name='from' value="1" />
+	
+	</form>
+	</p>
+	<P>其他信息　
+	<div class="list-group">
+		<a href="#" class="list-group-item"> 公司名称：{$zn_detail_other.companyName} </a>
+	    <a href="#" class="list-group-item">认证类型： {$zn_detail_other.companyName} </a> 
+        <a href="#"	class="list-group-item"> 认证时间： <?php echo date('Y-m-d',$zn_detail_other['authTime'])?>
+		</a> 
+		<a href="#" class="list-group-item"> 状态:{$zn_detail_other.supplierSpaceStatus},{$zn_detail_other.purchaseSpaceStatus}</a>
+		 <a href="#" class="list-group-item"> 注册情况：{$zn_detail_other.isRegister} </a> 
+		<a href="#" class="list-group-item">审核情况： {$zn_detail_other.authStatus} </a> 
+		</div>
+	</P>
+	<p>
+	<p>用户行为　
+	<div class="list-group">
+		<a href="#" class="list-group-item"> 最后一次登录：<?php echo date('Y-m-d',($zn_detail_other['lastLoginTime']))?>
+		</a>
+		供应行为：
+		<a href="#" class="list-group-item"> 
+		当前在售产品：<?php echo $zn_detail_other['total']?>款，最近一次发布在：<?php echo date('Y-m-d',($zn_detail_other['lastProductCreateTime']))?>
+		</a>
+		<a href="#" class="list-group-item"> 
+		签约采购单报价次数：<?php echo $zn_detail_other['purchaseCompeOfferTotal']?>次，最近一次报价在：<?php echo date('Y-m-d',($zn_detail_other['purchaseCompeOfferLastTime']))?>
+		</a>
+		<a href="#" class="list-group-item"> 
+		供应商招募单报名次数：<?php echo $zn_detail_other['recruitApplyTotal']?>次，最近一次报名在：<?php echo date('Y-m-d',($zn_detail_other['recruitApplyLastTime']))?>
+		</a>
+		<a href="#" class="list-group-item"> 
+		发布签约采购单：<?php echo $zn_detail_other['purchaseOrderCompeTotal']?>次，最近一次发布在：<?php echo date('Y-m-d',($zn_detail_other['purchaseOrderCompeLastTime']))?>
+		</a>
+		<a href="#" class="list-group-item"> 
+		发布供应商招募单：<?php echo $zn_detail_other['recruitBaseTotal']?>次，最近一次发布在：<?php echo date('Y-m-d',($zn_detail_other['recruitBaseLastTime']))?>
+		</a>
+	</div>
+	</P>
+	<else/>
+	<P>
+暂未匹配到信息！
+	</P>
+	</if>

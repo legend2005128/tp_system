@@ -1,0 +1,79 @@
+<link rel="stylesheet" href="/Public/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="/Public/zTreeStyle/jquery.ztree.core.min.js"></script>
+<script type="text/javascript" src="/Public/zTreeStyle/jquery.ztree.excheck.min.js"></script>
+<input type='hidden' name="user_id" class='j-user_id' value="{$userinfo.userid}"/>
+<script>
+var user_id = $('.j-user_id').val();
+    var setting = {
+        async: {
+            enable: true,
+            url:"/department/ajax_getdata?",
+            autoParam:["id"],
+            otherParam:{"user_id":user_id},
+            dataFilter: filter
+        },
+        view: {
+            expandSpeed:"50",
+            addHoverDom: addHoverDom,
+            selectedMulti: false,
+            fontCss: { 'size': '20px', 'font-family': '微软雅黑' }
+        },
+
+        check: {
+            enable: true
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            onCheck:onCheck
+        	
+        }
+    };
+
+    function filter(treeId, parentNode, childNodes) {
+        if (!childNodes) return null;
+        for (var i=0, l=childNodes.length; i<l; i++) {
+            childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+        }
+        return childNodes;
+    }
+    var nodes;
+    var checked_ids ;
+    function  onCheck() {
+        var treeObj=$.fn.zTree.getZTreeObj("trees")
+        nodes=treeObj.getCheckedNodes(true)
+        checked_ids="";
+      
+        for(var i=0;i<nodes.length;i++){
+        	if(!nodes[i].isParent)
+        		{
+        	      checked_ids +=nodes[i].id + ",";
+        		}
+      
+        }
+        
+        $('.j-department').val(checked_ids.trim());
+    }
+  
+    var newCount = 1;
+    function addHoverDom(treeId, treeNode) {
+        var sObj = $("#" + treeNode.tId + "_span");
+        if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+        var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+                + "' title='add node' onfocus='this.blur();'></span>";
+        sObj.after(addStr);
+
+        var btn = $("#addBtn_"+treeNode.tId);
+        if (btn) btn.bind("click", function(){
+            add_child(treeNode.id,sObj.html(),treeNode);
+            return false;
+        });
+    };
+
+    $(document).ready(function(){
+        $.fn.zTree.init($("#trees"), setting);
+    });
+</script>

@@ -1,0 +1,44 @@
+<div id="page-wrapper">
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    发信息
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <form role="form" action="" method="post">
+                                <div class="form-group">
+                                    <label>信息收件人</label>
+                                    <select  class="form-control" name="users[]" multiple>
+                                        <volist name="userlist" id="v">
+                                            <option value="{$v.userid}">{$v.username}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>主题</label>
+                                    <input type='text' class="form-control" name='subject' />
+                                </div>
+                                <div class="form-group">
+                                    <label>信息内容</label>
+                                    <textarea  class="form-control" name='content'></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-default">提交</button>
+                                {$error}
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>

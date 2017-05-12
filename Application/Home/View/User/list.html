@@ -1,0 +1,124 @@
+<div id="page-wrapper">
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <i class="fa fa-bar-chart-o fa-fw"></i>用户列表
+        <div class="pull-right">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                    选择操作
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li><a href="{:U('user/add')}">新增用户</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+
+        <div id="toolbar">
+            <button id="remove" class="btn btn-primary btn-sm" >
+                <i class="glyphicon glyphicon-remove"></i> Delete
+            </button>
+        </div>
+        <table id="table"
+               data-toolbar="#toolbar"
+               data-pagination="true"
+               data-search="true"
+               data-show-refresh="true"
+               data-show-toggle="true"
+               data-show-columns="true"
+               data-toggle="table"
+               data-toolbar="#toolbar"
+               data-page-list="[5, 15, 25, 35, ALL]"
+               data-height="460"
+               data-url="/user/list">
+            <thead>
+            <tr>
+                <th data-field="id" data-checkbox="true"></th>
+                <!-- <th data-field="userid">用户id</th> -->
+                <th data-field="username">登录名</th>
+                <th data-field="role">角色</th>
+                <th data-field="email">Email</th>
+                <th data-field="lastloginip">上次登录ip</th>
+                <th data-field="lastlogintime">最后登录时间</th>
+                <th data-field="status">状态</th>
+                <th data-field="operation">操作</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <!-- /.panel-body -->
+</div>
+</div>
+
+<script>
+    var $table = $('#table'),
+        $remove = $('#remove'),
+        selections = [];
+        //删除用户
+        $remove.click(function () {
+            var id_a = getIdSelections();
+            var ids = '';
+            for (var i = 0; i < id_a.length; i++) {
+                ids += id_a[i] + ",";
+            }
+            var del_data = {ids: ids};
+            $.post("/user/dels", del_data, function (res, o) {
+                if (res.code != 1001) {
+                    showMessage(res.msg);
+                    return;
+                } else {
+                    $table.bootstrapTable('remove', {
+                        field: 'userid',
+                        values: ids
+                    });
+                }
+            });
+
+        });
+        function getIdSelections() {
+            return $.map($table.bootstrapTable('getSelections'), function (row) {
+                return row.userid
+            });
+        }
+
+        //编辑用户
+        var $edt = $('.J-edt');
+        $edt.click(function () {
+
+
+        })
+    //禁用用户
+        $table.on('click','.J-cancle',function () {
+            var id = $(this).attr('data-id');
+            var del_data = {ids: id};
+            $.post("/user/dels", del_data, function (res, o) {
+                if (res.code != 1001) {
+                    showMessage(res.msg);
+                    return;
+                } else {
+                    showMessage(res.msg);
+                    $table.bootstrapTable('refresh');
+                    return;
+                }
+            });
+        })
+    //启用用户
+    $table.on('click','.J-cancle-off',function () {
+        var id = $(this).attr('data-id');
+        var del_data = {ids: id,type:1};
+        $.post("/user/dels", del_data, function (res, o) {
+            if (res.code != 1001) {
+                showMessage(res.msg);
+                return;
+            } else {
+                showMessage(res.msg);
+                $table.bootstrapTable('refresh');
+                return;
+            }
+        });
+    })
+</script>

@@ -1,0 +1,39 @@
+<div id="page-wrapper">
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    编辑个人信息
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <form role="form" action="" method="post">
+                                <div class="form-group">
+                                    <label>登录用户名</label>
+                                    <?php echo $us['username'];?>
+                                </div>
+                                <div class="form-group">
+                                    <label>密码</label>
+                                    <input type='password' class="form-control" name='password' autocomplete="off" />
+                                </div>
+                                <div class="form-group">
+                                    <label> 重复密码</label>
+                                    <input type='password' class="form-control" name='repassword' autocomplete="off" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type='text' class="form-control" name='email' value="<?php echo $us['email'];?>" />
+                                </div>
+                                <input type="hidden" name="userid" value="<?php echo $userinfo['userid'];?>"/>
+                                <button type="submit" class="btn btn-default">提交</button>
+                                {$error}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

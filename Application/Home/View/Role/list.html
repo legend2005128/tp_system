@@ -1,0 +1,96 @@
+<div id="page-wrapper">
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <i class="fa fa-bar-chart-o fa-fw"></i>角色列表
+        <div class="pull-right">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                    选择操作
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li><a href="{:U('role/add')}">新增角色</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+
+        <div id="toolbar">
+           <button id="remove" class="btn  btn-primary btn-sm" >
+                <i class="glyphicon glyphicon-remove"></i> Delete
+            </button>
+        </div>
+        <table id="table"
+               data-toolbar="#toolbar"
+               data-pagination="true"
+               data-search="true"
+               data-show-refresh="true"
+               data-show-toggle="true"
+               data-show-columns="true"
+               data-toggle="table"
+               data-toolbar="#toolbar"
+               data-page-list="[5, 15, 25, 35, ALL]"
+               data-height="460"
+               data-url="/role/list">
+            <thead>
+            <tr>
+                <th data-field="id" data-checkbox="true"></th>
+                <th data-field="roleid">ID</th>
+                <th data-field="rolename">角色名称</th>
+                <th data-field="description">说明</th>
+                <th data-field="operation">操作</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <!-- /.panel-body -->
+</div>
+</div>
+
+<script>
+    var $table = $('#table'),
+            $remove = $('#remove'),
+            selections = [];
+    //删除角色 批量
+    $remove.click(function () {
+        var id_a = getIdSelections();
+        var ids = '';
+        for (var i = 0; i < id_a.length; i++) {
+            ids += id_a[i] + ",";
+        }
+        var del_data = {ids: ids};
+        $.post("/role/dels", del_data, function (res, o) {
+            if (res.code != 1001) {
+                showMessage(res.msg);
+                return;
+            } else {
+            	 $table.bootstrapTable('refresh');
+            }
+        });
+
+    });
+    function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'), function (row) {
+            return row.roleid
+        });
+    }
+    //删除角色
+    $table.on('click','.J-cancle',function () {
+        var id = $(this).attr('data-id');
+        var del_data = {ids: id};
+        $.post("/role/dels", del_data, function (res, o) {
+            if (res.code != 1001) {
+                showMessage(res.msg);
+                return;
+            } else {
+                showMessage(res.msg);
+                $table.bootstrapTable('refresh');
+                return;
+            }
+        });
+    });
+
+</script>

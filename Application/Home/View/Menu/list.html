@@ -1,0 +1,75 @@
+<div id="page-wrapper">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<i class="fa fa-bar-chart-o fa-fw"></i>菜单列表
+
+		</div>
+		<!-- /.panel-heading -->
+		<div class="panel-body">
+			<div id="toolbar">
+				<button id="remove" class="btn btn-primary btn-sm">
+					<i class="glyphicon glyphicon-remove"></i> 删除菜单
+				</button>
+				<button id="add" class="btn btn-outline btn-primary">新增菜单
+				</button>
+			</div>
+			<table id="table" data-toolbar="#toolbar" data-pagination="true"
+				data-search="true" data-show-refresh="true" data-show-toggle="true"
+				data-show-columns="true" data-toggle="table" data-toolbar="#toolbar"
+				data-page-list="[15, 30, 45, 60, ALL]" data-height="460"
+				data-url="/menu/list">
+				<thead>
+					<tr>
+						<th data-field="id" data-checkbox="true"></th>
+						<th data-field="name">菜单名称</th>
+						<th data-field="icons">菜单icon</th>
+						<th data-field="url">菜单地址</th>
+						<th data-field="display">状态</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<!-- /.panel-body -->
+	</div>
+</div>
+
+<script>
+	var $table = $('#table'), $remove = $('#remove'), selections = [];
+	//删除信息
+	$remove.click(function() {
+		var id_a = getIdSelections();
+		
+		if (id_a.length == 0) {
+			return false;
+		}
+		var ids = '';
+		for (var i = 0; i < id_a.length; i++) {
+			ids += id_a[i] + ",";
+		}
+		var del_data = {
+			ids : ids
+		};
+		if(confirm('删除后不可恢复?')){
+			$.post("/menu/dels", del_data, function(res, o) {
+				if (res.code != 1001) {
+					showMessage(res.msg);
+					return;
+				} else {
+					showMessage(res.msg);
+					 $table.bootstrapTable('refresh');
+				}
+			});
+	}
+		
+
+	});
+	function getIdSelections() {
+		return $.map($table.bootstrapTable('getSelections'), function(row) {
+			return row.menuid
+		});
+	}
+
+	$('#add').click(function() {
+		location.href = '/menu/add';
+	})
+</script>

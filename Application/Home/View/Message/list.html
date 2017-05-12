@@ -1,0 +1,97 @@
+<div id="page-wrapper">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <i class="fa fa-bar-chart-o fa-fw"></i>消息列表
+            
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+
+            <div id="toolbar">
+                <button id="remove" class="btn btn-primary btn-sm" >
+                    <i class="glyphicon glyphicon-remove"></i> 删除信息
+                </button>
+                <button id="add" class="btn btn-primary btn-sm" >
+                    <i class="glyphicon"></i> 发送新信息
+                </button>
+            </div>
+            <table id="table"
+                   data-toolbar="#toolbar"
+                   data-pagination="true"
+                   data-search="true"
+                   data-show-refresh="true"
+                   data-show-toggle="true"
+                   data-show-columns="true"
+                   data-toggle="table"
+                   data-toolbar="#toolbar"
+                   data-page-list="[5, 15, 25, 35, ALL]"
+                   data-height="460"
+                   data-url="/message/list">
+                <thead>
+                <tr>
+                    <th data-field="id" data-checkbox="true"></th>
+                    <th data-field="subject">消息内容</th>
+                    <th data-field="sender">发信人</th>
+                    <th data-field="message_time">接收时间</th>
+                    <th data-field="status">状态</th>
+                  <!--  <th data-field="operation">操作</th>-->
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <!-- /.panel-body -->
+    </div>
+</div>
+
+<script>
+    var $table = $('#table'),
+            $remove = $('#remove'),
+            selections = [];
+    //删除信息
+    $remove.click(function () {
+        var id_a = getIdSelections();
+        var ids = '';
+        for (var i = 0; i < id_a.length; i++) {
+            ids += id_a[i] + ",";
+        }
+        var del_data = {ids: ids};
+       
+        $.post("/message/dels", del_data, function (res, o) {
+            if (res.code != 1001) {
+                showMessage(res.msg);
+                return;
+            } else {
+                $table.bootstrapTable('refresh');
+            }
+        });
+
+    });
+    function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'), function (row) {
+            return row.messageid
+        });
+    }
+
+    $table.on('click','.j-b',function () {
+            var ts = $(this);
+            var id = $(this).attr('data-id');
+            var status = $(this).attr('data-status');
+            var data = {ids: id};
+            if(status == 0)
+            {
+                $.post("/message/detail", data, function (res, o) {
+                    if (res.code == 1001) {
+                        ts.popover('show');
+
+                        return;
+                    }
+                });
+            }else{
+                ts.popover('show');
+            }
+
+    });
+    $('#add').click(function(){
+    	location.href = '/message/add';
+    })
+</script>

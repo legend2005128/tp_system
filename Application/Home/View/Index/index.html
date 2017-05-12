@@ -1,0 +1,169 @@
+<include file="Ini:header" />
+<div id="page-wrapper">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">欢迎来到大业务系统!</h1>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-3">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-6">
+							<i class="fa fa-comments fa-5x"></i>
+						</div>
+						<div class="col-xs-6 text-right">
+							<p class="announcement-heading">
+								<?php echo count($messnolist);?>
+							</p>
+							<p class="announcement-text">新消息</p>
+						</div>
+					</div>
+				</div>
+				<a href="{:U('message/list')}">
+					<div class="panel-footer announcement-bottom">
+						<div class="row">
+							<div class="col-xs-6">查看详情</div>
+							<div class="col-xs-6 text-right">
+								<i class="fa fa-arrow-circle-right"></i>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+
+		<div class="col-lg-3">
+			<div class="panel panel-warning">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-6">
+							<i class="fa fa-check fa-5x"></i>
+						</div>
+						<div class="col-xs-6 text-right">
+							<p class="announcement-heading">{$customer_arr.approve}</p>
+							<p class="announcement-text">我的认证客户</p>
+						</div>
+					</div>
+				</div>
+				<a href="{:U('customer/list?is_approve=approve')}">
+					<div class="panel-footer announcement-bottom">
+						<div class="row">
+							<div class="col-xs-6">查看详情</div>
+							<div class="col-xs-6 text-right">
+								<i class="fa fa-arrow-circle-right"></i>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+
+
+		<div class="col-lg-3 col-md-6">
+			<div class="panel panel-yellow">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-3">
+							<i class="fa fa-tasks fa-5x"></i>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="huge">0</div>
+							<div>我的订单</div>
+						</div>
+					</div>
+				</div>
+				<a href="#">
+					<div class="panel-footer">
+						<span class="pull-left">查看详情</span> <span class="pull-right"><i
+							class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-6">
+			<div class="panel panel-red">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-3">
+							<i class="fa fa-support fa-5x"></i>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="huge">1</div>
+							<div>个人信息</div>
+						</div>
+					</div>
+				</div>
+				<a href="{:U('setting/index')}">
+					<div class="panel-footer">
+						<span class="pull-left">修改密码</span> <span class="pull-right"><i
+							class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+	<div class="col-lg-12">
+		<div class="alert alert-success alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-hidden="true">×</button>
+			尊敬的用户！ <a class="alert-link" href="javascript:;"> 欢迎进入筑牛网服务商管理平台.</a><br>
+			您在使用过程中有不明白的地方请联系筑牛客服;服务热线 4008-791-799 周一至周六 9:00-18:00
+		</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<i class="fa fa-clock-o"></i> 最近登录
+					
+					</h3>
+				</div>
+				<div class="panel-body">
+					<div class="list-group">
+						<a href="#" class="list-group-item"> 登录用户名： {$us.username} </a> <a
+							href="#" class="list-group-item"> Email： {$us.email} </a> <a
+							href="#" class="list-group-item"> 角色： {$us.rolename} </a> <a
+							href="#" class="list-group-item"> 最近一次登录时间：<?php echo date('Y-m-d H:i:s',$us['lastlogintime'])?>
+						</a> <a href="#" class="list-group-item"> 最近一次ip：
+							{$us.lastloginip} </a>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<i class="fa fa-clock-o"></i> 系统信息
+					</h3>
+				</div>
+				<div class="panel-body">
+					<div class="list-group">
+						<a href="#" class="list-group-item"> 服务器标识： {$Think.server.SERVER_SOFTWARE} </a> 
+						<a href="#" class="list-group-item"> 通信协议： {$Think.server.SERVER_PROTOCOL} </a> 
+						<a href="#" class="list-group-item"> 服务器所使用的端口： {$Think.server.SERVER_PORT} </a>
+						 <a href="#" class="list-group-item"> 服务器主机:{$Think.server.SERVER_NAME}</a>
+						<a href="#" class="list-group-item">Accept-Encoding: 头部:{$Think.server.HTTP_ACCEPT_ENCODING}</a>
+						<a href="#" class="list-group-item"> 页面时的请求方法:{$Think.server.REQUEST_METHOD}</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<include file="Ini:bottom" />

@@ -1,0 +1,231 @@
+<div id="page-wrapper">
+	<div class="panel  panel-primary">
+		<div class="panel-heading">
+			<i class="fa fa-bar-chart-o fa-fw"></i>客户列表
+		</div>
+		<div class="panel-body">
+			<div class="well">
+                                <p>
+                                	<div class="form-inline" role="form">
+											<form role="form" action="" method="get" class="form1">
+												<div class="form-group">
+													 <label> 客户名称: </label>
+													 <input name="company_name" class="form-control w70" value="{$company_name}">
+													 <label>
+														所在地区:
+													 </label>
+													  <input name="company_area" class="form-control w70" value="{$company_area}">
+												</div>
+												<div class="form-group">
+													<label>注册时间: </label> 
+													<input name="create_time_1" class="form-control w70" type="date" value="{$create_time_1}">
+													<input name="create_time_2" class="form-control w70" type="date" value="{$create_time_2}">
+												</div>
+												<input name="is_approve" class="form-control w70 j-is_approve" type="hidden" value="{$company_status}">
+												<button id="search" type="submit" class="btn btn-default">Search</button>
+										</form>
+									</div>
+                                </p>
+             </div>
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<ul class="nav nav-pills">
+							<li <if condition="$company_status neq 'APPROVE' and $company_status neq 'DISAPPROVE'"> class="active" </if> ><a href="#zn-pills" class="j-approve_tag" data-toggle="tab" aria-expanded="false" data-id="all">全部客户</a></li>
+							<li <if condition="$company_status eq 'APPROVE'"> class="active"</if> ><a href="#home-pills"  class="j-approve_tag" data-toggle="tab" aria-expanded="true" data-id="approve">通过筑牛网实名审核的客户</a></li>
+							<li <if condition="$company_status eq 'DISAPPROVE'"> class="active"</if> ><a href="#profile-pills" class="j-approve_tag" data-toggle="tab" aria-expanded="false" data-id="disapprove">未实名客户</a></li>
+						</ul>
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<div class="tab-pane fade active in" id="home-pills">
+								<p></p>
+								<button id="remove" class="btn btn-primary btn-sm">
+										<i class="glyphicon glyphicon-remove"></i> 删除
+									</button>
+								<p></p>
+								<table id="table" width="100%"
+									class="table table-striped table-bordered table-hover">
+									<thead>
+										<tr>
+											<th data-field="count" colspan='14'>查询到 {$count} 条记录</th>
+
+										</tr>
+										<tr>
+											<th data-field="crm_ck_all"><input type="checkbox"
+												name="crm_ck_all" id="crm_ck_all"></th>
+											<th data-field="crm_id">序号</th>
+											<th data-field="company_name">客户名称</th>
+											<th data-field="company_status">认证</th>
+											<th data-field="link_name">联系人</th>
+											<th data-field="link_mobile">联系方式</th>
+											<th data-field="company_area">地区</th>
+											<th data-field="company_addr">所在地</th>
+											<th data-field="creater">创建人</th>
+											<!--  <th data-field="creater_time">数据创建时间</th> -->
+											<th data-field="weihuren">维护人</th>
+											<!--   <th data-field="weihucontent">跟进</th> -->
+											<th data-field="edit">操作</th>
+										</tr>
+									</thead>
+									<volist name="list" id="item">
+									<tr>
+										<td data-field="crm_ck_id[]"><input type="checkbox"
+											name="crm_ck_id[]" class='j-ck_crm_id'
+											data-id="{$item.crm_id}"></td>
+										<td data-field="crm_id">{$item.crm_id}</td>
+										<td data-field="company_name">{$item.company_name}</td>
+										<td data-field="company_status">{$item.company_status}</td>
+										<td data-field="link_name">{$item.link_name}</td>
+										<td data-field="link_mobile">{$item.link_mobile}</td>
+										<td data-field="company_area">{$item.company_area}</td>
+										<td data-field="company_addr">{$item.company_addr}</td>
+										<td data-field="creater_time">{$item.creater_time}</td>
+										<td data-field="weihuren">{$item.weihuren}</td>
+										<!--    <td data-field="weihucontent">{$item.weihucontent}</td> -->
+										<td data-field="edit" colspan="2"><a href="javascript:;"
+											class="j-edit-weihuren btn-outline btn-info"
+											data-toggle="modal" data-target="#whModal"
+											data-id="{$item.crm_id}"> 变更维护人</a> | <a 
+											class="j-edit-genjin"
+											href="{:U('customer/genjin/crmid/'.$item['crm_id'])}">跟进</a> | 
+											<a 
+											href="{:U('customer/detail/crmid/'.$item['crm_id'])}">详情页</a> | <a 
+											href="{:U('customer/edit/crmid/'.$item['crm_id'])}">编辑</a>
+										</td>
+									</tr>
+									</volist>
+									<tr>
+										<td data-field="page" colspan="12">
+											<div class="dataTables_paginate paging_simple_numbers"
+												id="dataTables-example_paginate">{$page}</div>
+										</td>
+									</tr>
+								</table>
+
+
+							</div>
+							<div class="tab-pane fade" id="profile-pills">...</div>
+							<div class="tab-pane fade" id="zn-pills">...</div>
+						</div>
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!-- 变更维护人 -->
+<!-- Modal -->
+<div class="modal fade" id="whModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">选择维护人</h4>
+			</div>
+			<div class="modal-body">
+				请选择维护人： <select name='weihuren' id="weihuren" class="form-control">
+					<option value="">请选择</option>
+					<volist name="weihuren_arr" id="v">
+					<option value="{$v.userid}">{$v.username}</option>
+					</volist>
+				</select> <input type="hidden" name="crm_id" class="j-crm_id" />
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary j-save_weihuren">Save
+					changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	//全选按钮
+	var flag = true;
+	$('#crm_ck_all').click(function() {
+		if (flag) {
+			flag = false;
+			$('#table').find('.j-ck_crm_id').prop('checked', true);
+		} else {
+			flag = true;
+			$('#table').find('.j-ck_crm_id').prop('checked', false);
+		}
+	});
+	//删除客户
+	$('#remove').click(function() {
+		var ck_crm_ids = '';
+		var i = 0;
+		$('#table').find('.j-ck_crm_id').each(function() {
+			if ($(this).is(":checked")) {
+				ck_crm_ids += $(this).attr('data-id') + ',';
+				i++;
+			}
+		});
+		if (i < 1) {
+			return false;
+		}
+		if (confirm('您确定要删除 ' + i + ' 条记录，数据删除不可恢复?')) {
+			del_data = {
+				ck_crm_ids : ck_crm_ids
+			};
+			$.post("/customer/ajax_del", del_data, function(res, o) {
+				if (res.code != 1001) {
+					showMessage(res.msg);
+				} else {
+					location.reload();
+				}
+			});
+		}
+	});
+	//认证客户
+	$('.j-approve_tag').click(function() {
+		var id = $(this).attr('data-id');
+		$('.j-is_approve').val(id);
+		$('.form1').submit();
+	});
+	//变更维护人
+	$('#whModal').on(
+			'show.bs.modal',
+			function(event) {
+				var button = $(event.relatedTarget)
+				var crm_id = button.data('id')
+				var modal = $(this)
+				modal.find('.modal-body .j-crm_id').val(crm_id);
+				$('.j-save_weihuren').click(
+						function() {
+							var weihuren_id = $('#weihuren').find(
+									"option:selected").val();
+							var weihuren = $('#weihuren').find(
+									"option:selected").text().trim();
+							var j_crm_id = $('.j-crm_id').val();
+
+							if (weihuren_id == '') {
+								showMessage('请选择维护人');
+								return false;
+							}
+							wh_data = {
+								whren : weihuren,
+								provider_id : weihuren_id,
+								crm_id : j_crm_id
+							};
+							$.post("/customer/ajax_edit_weihuren", wh_data,
+									function(res, o) {
+										if (res.code != 1001) {
+											showMessage(res.msg);
+										} else {
+											location.reload();
+										}
+									});
+						})
+			})
+</script>
+
+
+

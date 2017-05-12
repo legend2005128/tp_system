@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="筑牛大业务系统">
+    <meta name="author" content="筑牛">
+    <title>您好,欢迎访问筑牛网crm系统!    </title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/Public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="/Public/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/Public/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="/Public/vendor/morrisjs/morris.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="/Public/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="/Public/js/html5shiv.js"></script>
+    <script src="/Public/js/respond.min.js"></script>
+    <![endif]-->
+    <!-- /#wrapper -->
+    <script src="/Public/vendor/jquery/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/Public/css/bootstrap-table.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/Public/js/bootstrap-table.min.js"></script>
+    <!-- Latest compiled and minified Locales -->
+    <script src="/Public/js/bootstrap-table-zh-CN.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/Public/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/Public/js/crm-admin-2.js"></script>
+    <script>
+        var baseurl = '';
+        var TOKEN_NAME = '<?php echo C('TOKEN_NAME');?>';
+    	var text=document.title
+    	var timerID
+    	function newtext() {
+    	clearTimeout(timerID)
+    	document.title=text.substring(1,text.length)+text.substring(0,1)
+    	text=document.title.substring(0,text.length)
+    	timerID = setTimeout("newtext()", 500)
+    	}
+    </script>
+</head>
+<body onload="newtext()">
+<div id="wrapper">
+    <!-- Navigation -->
+    <include file="Ini:nav-l" />

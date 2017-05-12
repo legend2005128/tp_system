@@ -1,0 +1,62 @@
+<nav class="navbar navbar-default navbar-static-top" role="navigation"
+	style="margin-bottom: 0">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse"
+			data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+			<span class="icon-bar"></span> <span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">Crm System Administrator Console </a>
+	</div>
+	<!-- /.navbar-header -->
+
+	<ul class="nav navbar-nav navbar-right navbar-user">
+<li class="dropdown user-dropdown">
+			<a href="/"
+			class="dropdown-toggle"><i
+				class="fa "></i> 首页 </a>
+			</li>
+		<li class="dropdown messages-dropdown"><a href="#"
+			class="dropdown-toggle" data-toggle="dropdown"><i
+				class="fa fa-envelope"></i> Messages <span class="badge"><?php echo count($messnolist);?></span> <b
+				class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<volist name="messnolist" id="v_no">
+				<li class="dropdown-header">
+					<?php echo count($messnolist);?>New Messages
+				</li>
+				<li class="message-preview"><a href="{:U('message/list')}">
+						<span class="avatar"><i	class="fa  fa-envelope-o"></i></span>
+						<span class="name">
+							<?php echo $v_no['sender'];?>:
+					</span> <span class="message">
+							<?php echo mb_substr($v_no['subject'],0,12)?>...
+					</span> <span class="time"><i class="fa fa-clock-o"></i> <?php echo time_tran(date('Y-m-d',$v_no['message_time']));?></span>
+				</a></li>
+				<li class="divider"></li>
+				</volist>
+			</ul></li>
+
+		<li class="dropdown user-dropdown"><a href="#"
+			class="dropdown-toggle" data-toggle="dropdown"><i
+				class="fa fa-user"></i> {$us.username}  <b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<li><a href="{:U('user/profile')}"><i class="fa fa-user"></i>
+						个人信息</a></li>
+				<li><a href="{:U('setting/index')}"><i class="fa fa-gear"></i>
+						修改密码</a></li>
+				<li class="divider"></li>
+				<li><a href="{:U('/loginout')}"><i class="fa fa-power-off"></i>
+						注销</a></li>
+			</ul></li>
+			
+	</ul>
+	<div class="navbar-default sidebar" role="navigation">
+		<div class="sidebar-nav navbar-collapse">
+			{:W('Menu/lists',array($us['roleid']))}</div>
+		<!-- /.sidebar-collapse -->
+	</div>
+	<!-- /.navbar-static-side -->
+</nav>
+
+<p>
